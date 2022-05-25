@@ -19,6 +19,9 @@ namespace ServiceRunner {
 			Debug.Assert(matchingTrackDirs.Length <= 1, "Track ID storage folders should be unique!");
 
 			DirectoryInfo trackDir = matchingTrackDirs.Length != 0 ? matchingTrackDirs[0] : new DirectoryInfo(Path.Combine(_rootFolder.FullName, trackId));
+			if (!trackDir.Exists) {
+				trackDir.Create();
+			}
 
 			string optimalLapFile = Path.Combine(trackDir.FullName, laps.OptimalLap.Name);
 			string bestLapFile = Path.Combine(trackDir.FullName, laps.BestLap.Name);
