@@ -1,4 +1,6 @@
 iRacing Deltabar Service/obj
 iRacing Deltabar Service/bin
 iRacing Deltabar Service/.vs
-
+ServiceRunner/obj
+ServiceRunner/obj/bin
+ServiceRunner/obj/.vs
