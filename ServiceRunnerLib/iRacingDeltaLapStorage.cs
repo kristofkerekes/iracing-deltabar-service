@@ -2,8 +2,8 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace ServiceRunner {
-	public class iRacingDeltaLapStorage {
+namespace ServiceRunnerLib {
+	internal class iRacingDeltaLapStorage {
 		private readonly DirectoryInfo _rootFolder;
 
 		public iRacingDeltaLapStorage(DirectoryInfo rootFolder) {
@@ -40,7 +40,7 @@ namespace ServiceRunner {
 			}
 
 			DirectoryInfo trackDir = matchingTrackDirs[0];
-			string carMatcher = "_*" + car;
+			string carMatcher = "*_" + car;
 			FileInfo[] optimalLap = trackDir.GetFiles(carMatcher + ".olap");
 			FileInfo[] bestLap = trackDir.GetFiles(carMatcher + ".blap");
 

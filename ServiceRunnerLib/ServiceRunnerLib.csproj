@@ -7,8 +7,8 @@
     <ProjectGuid>{5BE5AD2F-AFF5-470C-8752-FA51065D5B4B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ServiceRunnerDotNet</RootNamespace>
-    <AssemblyName>ServiceRunnerDotNet</AssemblyName>
+    <RootNamespace>ServiceRunnerLib</RootNamespace>
+    <AssemblyName>ServiceRunnerLib</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -44,7 +44,9 @@
     <Compile Include="DeltaLapController.cs" />
     <Compile Include="DeltaLaps.cs" />
     <Compile Include="DeltaLapStorage.cs" />
+    <Compile Include="FileSystemSettings.cs" />
     <Compile Include="iRacingDeltaLapStorage.cs" />
+    <Compile Include="iRacingListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

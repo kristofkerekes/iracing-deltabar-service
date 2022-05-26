@@ -2,12 +2,15 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace ServiceRunner {
-	public class DeltaLapStorage {
+namespace ServiceRunnerLib {
+	internal class DeltaLapStorage {
         private readonly DirectoryInfo _rootFolder;
 
 		public DeltaLapStorage(DirectoryInfo rootFolder) {
 			_rootFolder = rootFolder;
+			if (!_rootFolder.Exists) {
+				_rootFolder.Create();
+			}
 		}
 
 		public bool Insert(string seriesId, uint week, string carId, DeltaLaps laps) {

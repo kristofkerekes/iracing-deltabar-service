@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iRacingSimulator", "..\iRac
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceRunnerLib", "..\ServiceRunnerLib\ServiceRunnerLib.csproj", "{5BE5AD2F-AFF5-470C-8752-FA51065D5B4B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceRunnerApp", "ServiceRunnerApp\ServiceRunnerApp.csproj", "{65CC420E-1DE2-46A2-A429-F72B18601373}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -105,6 +107,26 @@ Global
 		{5BE5AD2F-AFF5-470C-8752-FA51065D5B4B}.Release|x64.Build.0 = Release|Any CPU
 		{5BE5AD2F-AFF5-470C-8752-FA51065D5B4B}.Release|x86.ActiveCfg = Release|Any CPU
 		{5BE5AD2F-AFF5-470C-8752-FA51065D5B4B}.Release|x86.Build.0 = Release|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Debug|ARM.Build.0 = Debug|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Debug|x64.Build.0 = Debug|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Debug|x86.Build.0 = Debug|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Release|Any CPU.Build.0 = Release|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Release|ARM.ActiveCfg = Release|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Release|ARM.Build.0 = Release|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Release|ARM64.Build.0 = Release|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Release|x64.ActiveCfg = Release|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Release|x64.Build.0 = Release|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Release|x86.ActiveCfg = Release|Any CPU
+		{65CC420E-1DE2-46A2-A429-F72B18601373}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

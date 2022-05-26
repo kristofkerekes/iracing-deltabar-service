@@ -1,9 +1,8 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 
-namespace ServiceRunner {
-	public class DeltaLapController {
+namespace ServiceRunnerLib {
+	internal class DeltaLapController {
 		private DeltaLapStorage _deltaStorage;
 		private iRacingDeltaLapStorage _iRacingStorage;
 
@@ -12,29 +11,41 @@ namespace ServiceRunner {
 			_iRacingStorage = new iRacingDeltaLapStorage(iRacingStorageInfo);
 		}
 
-		public bool ExportLapsFromSimulator(iRacingSimulator.Sim iRacingInstance) {
-			string trackId = iRacingInstance.SessionData.Track.CodeName;
-			string carId = iRacingInstance.Driver.Car.CarPath;
+		public bool ExportLapsFromSimulator(iRacingSimulator.Drivers.Driver driver, iRacingSdkWrapper.SessionInfo sessionInfo) {
+			string trackId = sessionInfo["WeekendInfo"]["TrackName"].GetValue();
+			string carId = driver.Car.CarPath;
 			DeltaLaps? laps = _iRacingStorage.Find(trackId, carId);
 			if (laps == null) {
 				return false;
 			}
 
-			string seriesId = iRacingInstance.SessionInfo["WeekendInfo"]["SeriesID"].GetValue();
-			uint raceWeek = uint.Parse(iRacingInstance.SessionInfo["WeekendInfo"]["RaceWeek"].GetValue());
+			string seriesId = sessionInfo["WeekendInfo"]["SeriesID"].GetValue();
+			uint raceWeek = uint.Parse(sessionInfo["WeekendInfo"]["RaceWeek"].GetValue());
+			if (seriesId.Equals("0") || raceWeek == 0) {
+				// Callback to guess / choose series
+				Debug.Assert(sessionInfo["WeekendInfo"]["EventType"].GetValue().Equals("Test"));
+				return false;
+			}
+
 			return _deltaStorage.Insert(seriesId, raceWeek, carId, (DeltaLaps)laps);
 		}
 
-		public bool ImportLapsToSimulator(iRacingSimulator.Sim iRacingInstance) {
-			string carId = iRacingInstance.Driver.Car.CarPath;
-			uint raceWeek = uint.Parse(iRacingInstance.SessionInfo["WeekendInfo"]["RaceWeek"].GetValue());
-			string seriesId = iRacingInstance.SessionInfo["WeekendInfo"]["SeriesID"].GetValue();
+		public bool ImportLapsToSimulator(iRacingSimulator.Drivers.Driver driver, iRacingSdkWrapper.SessionInfo sessionInfo) {
+			string carId = driver.Car.CarPath;
+			uint raceWeek = uint.Parse(sessionInfo["WeekendInfo"]["RaceWeek"].GetValue());
+			string seriesId = sessionInfo["WeekendInfo"]["SeriesID"].GetValue();
+			if (seriesId.Equals("0") || raceWeek == 0) {
+				// Callback to guess / choose series
+				Debug.Assert(sessionInfo["WeekendInfo"]["EventType"].GetValue().Equals("Test"));
+				return false;
+			}
+
 			DeltaLaps? laps = _deltaStorage.Find(seriesId, raceWeek, carId);
 			if (laps == null) {
 				return false;
 			}
 
-			string trackId = iRacingInstance.SessionData.Track.CodeName;
+			string trackId = sessionInfo["WeekendInfo"]["TrackName"].GetValue();
 			return _iRacingStorage.Insert(trackId, (DeltaLaps)laps);
 		}
 	}
