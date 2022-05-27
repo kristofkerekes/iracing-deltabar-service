@@ -95,6 +95,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\iRacingSdkWrapper\iRacingSdkWrapper\iRacingSdkWrapper.csproj">
+      <Project>{D6DB568B-35B3-49EB-8CB3-E4E5F1424247}</Project>
+      <Name>iRacingSdkWrapper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\iRacingSdkWrapper\iRacingSimulator\iRacingSimulator.csproj">
       <Project>{1765e7db-bee4-4324-a396-923d80b61ea0}</Project>
       <Name>iRacingSimulator</Name>

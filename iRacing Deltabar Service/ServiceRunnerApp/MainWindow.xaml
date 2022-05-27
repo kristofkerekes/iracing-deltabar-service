@@ -5,8 +5,27 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServiceRunnerApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Title="iRacing Deltabar Service" Height="200" Width="400">
+	<Window.Resources>
+		<Style TargetType="Button" x:Key="CustomButtonStyle">
+			<Setter Property="Background" Value="White"/>
+			<Setter Property="BorderBrush" Value="Black"/>
+			<Setter Property="TextBlock.TextAlignment" Value="Center"/>
+			<Setter Property="FontSize" Value="14"/>
+			<Setter Property="BorderThickness" Value="2,2,2,2"/>
+			<Style.Resources>
+				<Style TargetType="Border">
+					<Setter Property="CornerRadius" Value="3,3,3,3" />
+					<Setter Property="Padding" Value="2,2,2,2" />
+				</Style>
+			</Style.Resources>
+		</Style>
+	</Window.Resources>
+	
+	<StackPanel Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
+		<StackPanel HorizontalAlignment="Left" Margin="5,10,5,5" Orientation="Horizontal">
+			<Ellipse Fill="{Binding ActivityColor, Mode = OneWay}" Height="20" Width="20" Margin="5,0,5,0"/>
+			<Button Content="{Binding ActivityText, Mode = OneWay}" Style="{StaticResource CustomButtonStyle}" Click="ActivityButtonClicked" Margin="0,0,5,0" BorderThickness="1,1,1,1" Width="60"/>
+		</StackPanel>
+	</StackPanel>
 </Window>

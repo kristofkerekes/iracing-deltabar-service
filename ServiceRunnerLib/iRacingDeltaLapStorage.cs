@@ -8,6 +8,7 @@ namespace ServiceRunnerLib {
 
 		public iRacingDeltaLapStorage(DirectoryInfo rootFolder) {
 			_rootFolder = rootFolder;
+			Debug.Assert(rootFolder.Exists, "iRacing laps folder should already exist!");
 		}
 
 		public bool Insert(string trackId, DeltaLaps laps) {

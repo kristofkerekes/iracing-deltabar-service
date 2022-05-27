@@ -6,6 +6,8 @@ namespace ServiceRunnerLib {
 		private DeltaLapStorage _deltaStorage;
 		private iRacingDeltaLapStorage _iRacingStorage;
 
+		public bool ClearExistingLaps { get; set; } = false;
+
 		public DeltaLapController(DirectoryInfo deltaStorageInfo, DirectoryInfo iRacingStorageInfo) {
 			_deltaStorage = new DeltaLapStorage(deltaStorageInfo);
 			_iRacingStorage = new iRacingDeltaLapStorage(iRacingStorageInfo);
@@ -31,6 +33,7 @@ namespace ServiceRunnerLib {
 		}
 
 		public bool ImportLapsToSimulator(iRacingSimulator.Drivers.Driver driver, iRacingSdkWrapper.SessionInfo sessionInfo) {
+			string trackId = sessionInfo["WeekendInfo"]["TrackName"].GetValue();
 			string carId = driver.Car.CarPath;
 			uint raceWeek = uint.Parse(sessionInfo["WeekendInfo"]["RaceWeek"].GetValue());
 			string seriesId = sessionInfo["WeekendInfo"]["SeriesID"].GetValue();
@@ -42,10 +45,14 @@ namespace ServiceRunnerLib {
 
 			DeltaLaps? laps = _deltaStorage.Find(seriesId, raceWeek, carId);
 			if (laps == null) {
+				if (ClearExistingLaps) {
+					DeltaLaps? existingLaps = _iRacingStorage.Find(trackId, carId);
+					existingLaps?.OptimalLap.Delete();
+					existingLaps?.BestLap.Delete();
+				}
 				return false;
 			}
 
-			string trackId = sessionInfo["WeekendInfo"]["TrackName"].GetValue();
 			return _iRacingStorage.Insert(trackId, (DeltaLaps)laps);
 		}
 	}
