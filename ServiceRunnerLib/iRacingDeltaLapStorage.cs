@@ -4,7 +4,7 @@ using System.IO;
 
 namespace ServiceRunnerLib {
 	internal class iRacingDeltaLapStorage {
-		private readonly DirectoryInfo _rootFolder;
+		private DirectoryInfo _rootFolder;
 
 		public iRacingDeltaLapStorage(DirectoryInfo rootFolder) {
 			_rootFolder = rootFolder;

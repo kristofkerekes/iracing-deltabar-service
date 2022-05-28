@@ -1,15 +1,63 @@
 ﻿using System;
+using System.IO;
 
 namespace ServiceRunnerLib {
 	public class iRacingListener {
 		private iRacingSimulator.Sim _iRacingInstance;
 		private iRacingSimulator.Drivers.Driver _driver;
 		private iRacingSdkWrapper.SessionInfo _sessionInfo;
+		private AppSettings _appSettings = new AppSettings();
 
-		private DeltaLapController _deltaLapController = new DeltaLapController(FileSystemSettings.DeltaStorageRootFolder, FileSystemSettings.iRacingDeltaRootFolder);
+		public string DeltaStorageRootFolder {
+			get {
+				return _appSettings.FileSystemSettings.DeltaStorageRootFolder.FullName;
+			}
+			set {
+				_appSettings.DeltaStorageRootFolder = value;
+			}
+		}
+
+		public string iRacingDeltaRootFolder {
+			get {
+				return _appSettings.FileSystemSettings.iRacingDeltaRootFolder.FullName;
+			}
+			set {
+				_appSettings.iRacingDeltaRootFolder = value;
+			}
+		}
+
+		public bool ClearExistingLaps {
+			get {
+				return _appSettings.ClearExistingLaps;
+			}
+			set {
+				_appSettings.ClearExistingLaps = value;
+			}
+		}
+
+		public bool IsActive {
+			get {
+				return _appSettings.IsActive;
+			}
+			set {
+				if (value) {
+					iRacingSimulator.Sim.Instance.Start();
+				} else {
+					iRacingSimulator.Sim.Instance.Stop();
+				}
+				_appSettings.IsActive = iRacingSimulator.Sim.Instance.Sdk.IsRunning;
+			}
+		}
+
+		private DeltaLapController DeltaLapController {
+			get {
+				return new DeltaLapController(ClearExistingLaps, new DirectoryInfo(DeltaStorageRootFolder), new DirectoryInfo(iRacingDeltaRootFolder));
+			}
+		}
 
 		public iRacingListener(iRacingSimulator.Sim sim) {
 			_iRacingInstance = sim;
+
 			_iRacingInstance.Connected += SimConnected;
 			_iRacingInstance.Disconnected += SimDisconnected;
 		}
@@ -29,7 +77,7 @@ namespace ServiceRunnerLib {
 			_driver = _iRacingInstance.Driver;
 			_sessionInfo = _iRacingInstance.SessionInfo;
 
-			bool success = _deltaLapController.ExportLapsFromSimulator(_driver, _sessionInfo);
+			bool success = DeltaLapController.ExportLapsFromSimulator(_driver, _sessionInfo);
 		}
 	}
 }

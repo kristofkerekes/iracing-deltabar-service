@@ -12,7 +12,6 @@
 			<Setter Property="BorderBrush" Value="Black"/>
 			<Setter Property="TextBlock.TextAlignment" Value="Center"/>
 			<Setter Property="FontSize" Value="14"/>
-			<Setter Property="BorderThickness" Value="2,2,2,2"/>
 			<Style.Resources>
 				<Style TargetType="Border">
 					<Setter Property="CornerRadius" Value="3,3,3,3" />
@@ -25,7 +24,25 @@
 	<StackPanel Background="{DynamicResource {x:Static SystemColors.ControlBrushKey}}">
 		<StackPanel HorizontalAlignment="Left" Margin="5,10,5,5" Orientation="Horizontal">
 			<Ellipse Fill="{Binding ActivityColor, Mode = OneWay}" Height="20" Width="20" Margin="5,0,5,0"/>
-			<Button Content="{Binding ActivityText, Mode = OneWay}" Style="{StaticResource CustomButtonStyle}" Click="ActivityButtonClicked" Margin="0,0,5,0" BorderThickness="1,1,1,1" Width="60"/>
+			<Button Content="{Binding ActivityText, Mode = OneWay}" Style="{StaticResource CustomButtonStyle}" Click="ActivityButtonClicked" Margin="0,0,5,0" Width="60"/>
 		</StackPanel>
+		
+		<StackPanel HorizontalAlignment="Left" Margin="5,5,5,5" Orientation="Horizontal">
+			<TextBlock Text="iRacing Documents:" Margin="5,0,5,0" VerticalAlignment="Center" Width="110"/>
+			<TextBox Text="{Binding iRacingDocumentsFolder, Mode = OneWay}" Width="180" Margin="0,0,5,0"/>
+			<Button Content="Browse" Style="{StaticResource CustomButtonStyle}" Click="BrowseiRacingFolderClicked" Margin="0,0,5,0" Width="60"/>
+		</StackPanel>
+		
+		<StackPanel HorizontalAlignment="Left" Margin="5,5,5,5" Orientation="Horizontal">
+			<TextBlock Text="Delta Storage:" Margin="5,0,5,0" VerticalAlignment="Center" Width="110"/>
+			<TextBox Text="{Binding DeltaFolder, Mode = OneWay}" Width="180" Margin="0,0,5,0"/>
+			<Button Content="Browse" Style="{StaticResource CustomButtonStyle}" Click="BrowseDeltaFolderClicked" Margin="0,0,5,0" Width="60"/>
+		</StackPanel>
+
+		<StackPanel HorizontalAlignment="Left" Margin="5,5,5,5" Orientation="Horizontal">
+			<TextBlock Text="Clear existing laps:" Margin="5,0,5,0" VerticalAlignment="Center" Width="110"/>
+			<CheckBox x:Name="ClearExistingLapsCheck" Click="ClearExistingLapsToggled" IsChecked="{Binding ClearExistingLaps, Mode = OneWay}"/>
+		</StackPanel>
+
 	</StackPanel>
 </Window>

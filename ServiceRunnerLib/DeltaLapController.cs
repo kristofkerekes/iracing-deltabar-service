@@ -5,10 +5,10 @@ namespace ServiceRunnerLib {
 	internal class DeltaLapController {
 		private DeltaLapStorage _deltaStorage;
 		private iRacingDeltaLapStorage _iRacingStorage;
+		private bool _clearExistingLaps = false;
 
-		public bool ClearExistingLaps { get; set; } = false;
-
-		public DeltaLapController(DirectoryInfo deltaStorageInfo, DirectoryInfo iRacingStorageInfo) {
+		public DeltaLapController(bool clearExistingLaps, DirectoryInfo deltaStorageInfo, DirectoryInfo iRacingStorageInfo) {
+			_clearExistingLaps = clearExistingLaps;
 			_deltaStorage = new DeltaLapStorage(deltaStorageInfo);
 			_iRacingStorage = new iRacingDeltaLapStorage(iRacingStorageInfo);
 		}
@@ -45,7 +45,7 @@ namespace ServiceRunnerLib {
 
 			DeltaLaps? laps = _deltaStorage.Find(seriesId, raceWeek, carId);
 			if (laps == null) {
-				if (ClearExistingLaps) {
+				if (_clearExistingLaps) {
 					DeltaLaps? existingLaps = _iRacingStorage.Find(trackId, carId);
 					existingLaps?.OptimalLap.Delete();
 					existingLaps?.BestLap.Delete();
