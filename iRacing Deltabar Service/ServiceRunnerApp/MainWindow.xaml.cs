@@ -61,6 +61,17 @@ namespace ServiceRunnerApp {
 				OnPropertyChanged("ClearExistingLaps");
 			}
 		}
+
+		private bool _runOnSystemStartup = false;
+		public bool RunOnSystemStartup {
+			get {
+				return _runOnSystemStartup;
+			}
+			set {
+				_runOnSystemStartup = value;
+				OnPropertyChanged("RunOnSystemStartup");
+			}
+		}
 	}
 
 	public partial class MainWindow : Window {
@@ -70,9 +81,6 @@ namespace ServiceRunnerApp {
 			InitializeComponent();
 			Data = new MainWindowData();
 			DataContext = Data;
-		}
-
-		private void InitializeSystemTray() {
 		}
 
 		private void ActivityButtonClicked(object sender, RoutedEventArgs e) {
@@ -96,9 +104,14 @@ namespace ServiceRunnerApp {
 			ClearExistingLapsChanged?.Invoke(this, ClearExistingLapsCheck.IsChecked == true);
 		}
 
+		private void RunOnSystemStartupToggled(object sender, RoutedEventArgs e) {
+			RunOnSystemStartupChanged?.Invoke(this, RunOnSystemStartupCheck.IsChecked == true);
+		}
+
 		public event EventHandler ActivityToggled;
 		public event EventHandler<string> iRacingFolderChanged;
 		public event EventHandler<string> DeltaFolderChanged;
 		public event EventHandler<bool> ClearExistingLapsChanged;
+		public event EventHandler<bool> RunOnSystemStartupChanged;
 	}
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 
 namespace ServiceRunnerLib {
@@ -67,6 +68,9 @@ namespace ServiceRunnerLib {
 		}
 
 		private void SimDisconnected(object sender, EventArgs e) {
+			bool success = DeltaLapController.ExportLapsFromSimulator(_driver, _sessionInfo);
+			Debug.Assert(success, "Failed to Export data from iRacing!");
+
 			_driver = null;
 			_sessionInfo = null;
 		}
@@ -77,7 +81,8 @@ namespace ServiceRunnerLib {
 			_driver = _iRacingInstance.Driver;
 			_sessionInfo = _iRacingInstance.SessionInfo;
 
-			bool success = DeltaLapController.ExportLapsFromSimulator(_driver, _sessionInfo);
+			bool success = DeltaLapController.ImportLapsToSimulator(_driver, _sessionInfo);
+			Debug.Assert(success, "Failed to Import data to iRacing!");
 		}
 	}
 }

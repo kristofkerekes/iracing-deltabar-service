@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServiceRunnerApp"
         mc:Ignorable="d"
-        Title="iRacing Deltabar Service" Height="200" Width="400">
+        Title="iRacing Deltabar Service" Height="220" Width="400" ResizeMode="CanMinimize">
 	<Window.Resources>
 		<Style TargetType="Button" x:Key="CustomButtonStyle">
 			<Setter Property="Background" Value="White"/>
@@ -42,6 +42,11 @@
 		<StackPanel HorizontalAlignment="Left" Margin="5,5,5,5" Orientation="Horizontal">
 			<TextBlock Text="Clear existing laps:" Margin="5,0,5,0" VerticalAlignment="Center" Width="110"/>
 			<CheckBox x:Name="ClearExistingLapsCheck" Click="ClearExistingLapsToggled" IsChecked="{Binding ClearExistingLaps, Mode = OneWay}"/>
+		</StackPanel>
+		
+		<StackPanel HorizontalAlignment="Left" Margin="5,5,5,5" Orientation="Horizontal">
+			<TextBlock Text="Run on System Startup:" Margin="5,0,5,0" VerticalAlignment="Center" Width="110"/>
+			<CheckBox x:Name="RunOnSystemStartupCheck" Click="RunOnSystemStartupToggled" IsChecked="{Binding RunOnSystemStartup, Mode = OneWay}"/>
 		</StackPanel>
 
 	</StackPanel>
