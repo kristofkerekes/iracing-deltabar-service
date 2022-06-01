@@ -10,7 +10,7 @@ namespace ServiceRunnerLib {
 	}
 
 	internal class AppSettings {
-		private string AppSettingsFile => Path.Combine(FileSystemSettings.DeltaStorageRootFolder.FullName, "settings.json");
+		private string AppSettingsFile => Path.Combine(Directory.GetCurrentDirectory(), "settings.json");
 		private bool _noSerialization = false;
 
 		private bool _clearExistingLaps = false;
@@ -62,6 +62,11 @@ namespace ServiceRunnerLib {
 				return;
 			}
 
+			FileInfo appFileInfo = new FileInfo(AppSettingsFile);
+			if (!appFileInfo.Exists) {
+				appFileInfo.Directory.Create();
+			}
+
 			AppSettingsData serializableData = new AppSettingsData {
 				ClearExistingLaps = ClearExistingLaps,
 				IsActive = IsActive,
@@ -73,14 +78,18 @@ namespace ServiceRunnerLib {
 		}
 
 		internal void Deserialize() {
-			FileInfo appFileInfo = new FileInfo(AppSettingsFile);
-			if (!appFileInfo.Exists) {
-				appFileInfo.Create();
+			if (!File.Exists(AppSettingsFile)) {
 				Serialize();
 				return;
 			}
 			_noSerialization = true;
-			AppSettingsData serializableData = JsonConvert.DeserializeObject<AppSettingsData>(File.ReadAllText(AppSettingsFile));
+
+			string fileContent = File.ReadAllText(AppSettingsFile);
+			if (fileContent.Length == 0) {
+				return;
+			}
+
+			AppSettingsData serializableData = JsonConvert.DeserializeObject<AppSettingsData>(fileContent);
 			ClearExistingLaps = serializableData.ClearExistingLaps;
 			IsActive = serializableData.IsActive;
 			DeltaStorageRootFolder = serializableData.DeltaStorageRootFolder;

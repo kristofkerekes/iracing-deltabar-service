@@ -8,14 +8,5 @@ namespace ServiceRunnerLib {
 
 		public DirectoryInfo iRacingDeltaRootFolder = new DirectoryInfo(DefaultiRacingLaptimesFolder);
 		public DirectoryInfo DeltaStorageRootFolder = new DirectoryInfo(DefaultDeltaStorageFolder);
-
-		internal void LoadFolderInfo() {
-			// TODO load .ini file with information
-		}
-		internal void SaveFolderInfo(string newdeltaStorageRootFolder, string newiRacingDeltaRootFolder) {
-			// TODO save .ini file with information
-			iRacingDeltaRootFolder = new DirectoryInfo(newiRacingDeltaRootFolder);
-			DeltaStorageRootFolder = new DirectoryInfo(newdeltaStorageRootFolder);
-		}
 	}
 }
