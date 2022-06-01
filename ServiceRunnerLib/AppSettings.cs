@@ -24,7 +24,7 @@ namespace ServiceRunnerLib {
 			}
 		}
 
-		private bool _isActive = false;
+		private bool _isActive = true;
 		public bool IsActive {
 			get {
 				return _isActive;
@@ -73,6 +73,12 @@ namespace ServiceRunnerLib {
 		}
 
 		internal void Deserialize() {
+			FileInfo appFileInfo = new FileInfo(AppSettingsFile);
+			if (!appFileInfo.Exists) {
+				appFileInfo.Create();
+				Serialize();
+				return;
+			}
 			_noSerialization = true;
 			AppSettingsData serializableData = JsonConvert.DeserializeObject<AppSettingsData>(File.ReadAllText(AppSettingsFile));
 			ClearExistingLaps = serializableData.ClearExistingLaps;
